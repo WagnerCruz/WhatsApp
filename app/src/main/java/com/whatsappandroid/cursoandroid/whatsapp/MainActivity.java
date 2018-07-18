@@ -8,14 +8,14 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
-//    private DatabaseReference referenciaFirebase = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference referenciaFirebase = FirebaseDatabase.getInstance().getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        referenciaFirebase.child("pontos").setValue(100);
+        referenciaFirebase.child("pontos").setValue(200);
 
     }
 }
