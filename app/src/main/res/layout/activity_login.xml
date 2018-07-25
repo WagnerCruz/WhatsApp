@@ -22,7 +22,7 @@
         app:srcCompat="@drawable/logo" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/idnome"
         android:layout_width="355dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -40,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/id_cod_area"
         android:layout_width="48dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -51,10 +51,10 @@
         android:inputType="number"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/idnome" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/id_cod_ddd"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -64,8 +64,8 @@
         android:hint="11"
         android:inputType="number"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
-        app:layout_constraintStart_toEndOf="@+id/editText2"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintStart_toEndOf="@+id/id_cod_area"
+        app:layout_constraintTop_toBottomOf="@+id/idnome" />
 
     <EditText
         android:id="@+id/edit_fone"
@@ -81,11 +81,11 @@
         android:inputType="number"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editText3"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintStart_toEndOf="@+id/id_cod_ddd"
+        app:layout_constraintTop_toBottomOf="@+id/idnome" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btncadastrar"
         android:layout_width="132dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
