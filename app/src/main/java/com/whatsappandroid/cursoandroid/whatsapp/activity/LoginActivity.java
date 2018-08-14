@@ -1,6 +1,7 @@
 package com.whatsappandroid.cursoandroid.whatsapp.activity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.SmsManager;
@@ -11,9 +12,11 @@ import android.widget.EditText;
 
 import com.github.rtoshiro.util.format.SimpleMaskFormatter;
 import com.github.rtoshiro.util.format.text.MaskTextWatcher;
+import com.google.firebase.database.DatabaseReference;
 import com.whatsappandroid.cursoandroid.whatsapp.Helper.Permissoes;
 import com.whatsappandroid.cursoandroid.whatsapp.Helper.Preferencias;
 import com.whatsappandroid.cursoandroid.whatsapp.R;
+import com.whatsappandroid.cursoandroid.whatsapp.config.ConfiguracaoFirebase;
 
 import java.util.Random;
 
@@ -21,22 +24,42 @@ import java.util.Random;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText nome;
-    private EditText fone;
-    private EditText codarea;
-    private EditText cod_ddd;
-    private Button cadastrar;
-    private String[] permissoes = new String[]{
-            Manifest.permission.SEND_SMS,
-            Manifest.permission.INTERNET};
+//    private EditText nome;
+//    private EditText fone;
+//    private EditText codarea;
+//    private EditText cod_ddd;
+//    private Button cadastrar;
+//    private String[] permissoes = new String[]{
+//            Manifest.permission.SEND_SMS,
+//            Manifest.permission.INTERNET};
+
+    private DatabaseReference referenciaFirebase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Permissoes.validarPermissoes(this, permissoes);
+        referenciaFirebase = ConfiguracaoFirebase.getFirebase();
+        referenciaFirebase.child("pontos").setValue(700);
 
+
+
+    }
+
+    public void abrirCadastroUsuario(View view) {
+
+        Intent intent = new Intent(LoginActivity.this, CadastroUsuarioActivity.class);
+        startActivity(intent);
+
+    }
+
+}
+
+// Codigos exemplo para validação de token e envio de SMS
+
+/*
+        Permissoes.validarPermissoes(1,this, permissoes);
 
         nome = findViewById(R.id.idnome);
         fone = findViewById(R.id.edit_fone);
@@ -117,11 +140,8 @@ public class LoginActivity extends AppCompatActivity {
 
         }
 
+*/
 
-    };
-
-
-}
 
 
 

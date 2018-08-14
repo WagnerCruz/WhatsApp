@@ -4,4 +4,6 @@
     <string name="btn_cadastrar">Cadastrar</string>
     <string name="lbl_instrucoes_sms">Você recebeu um SMS para validação do seu número, digite o código de validação abaixo:</string>
     <string name="hint_codigo_sms">Digite o código!</string>
+    <string name="btn_Logar">Logar</string>
+    <string name="texto_cadastrar">Não tem conta? Cadastre-se</string>
 </resources>

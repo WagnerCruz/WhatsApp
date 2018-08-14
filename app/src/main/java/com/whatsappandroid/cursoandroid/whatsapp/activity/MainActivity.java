@@ -1,22 +1,20 @@
 package com.whatsappandroid.cursoandroid.whatsapp.activity;
 
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.whatsappandroid.cursoandroid.whatsapp.R;
+import com.whatsappandroid.cursoandroid.whatsapp.config.ConfiguracaoFirebase;
 
-public class MainActivity extends AppCompatActivity {
-
-    private DatabaseReference referenciaFirebase = FirebaseDatabase.getInstance().getReference();
+public class  MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        referenciaFirebase.child("pontos").setValue(200);
 
     }
 }
