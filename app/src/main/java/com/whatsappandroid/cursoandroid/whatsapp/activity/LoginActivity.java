@@ -1,24 +1,24 @@
 package com.whatsappandroid.cursoandroid.whatsapp.activity;
 
-import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.SmsManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-import com.github.rtoshiro.util.format.SimpleMaskFormatter;
-import com.github.rtoshiro.util.format.text.MaskTextWatcher;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.database.DatabaseReference;
-import com.whatsappandroid.cursoandroid.whatsapp.Helper.Permissoes;
-import com.whatsappandroid.cursoandroid.whatsapp.Helper.Preferencias;
 import com.whatsappandroid.cursoandroid.whatsapp.R;
 import com.whatsappandroid.cursoandroid.whatsapp.config.ConfiguracaoFirebase;
-
-import java.util.Random;
+import com.whatsappandroid.cursoandroid.whatsapp.model.Usuario;
 
 //import com.whatsappandroid.cursoandroid.whatsapp.R;
 
@@ -33,6 +33,13 @@ public class LoginActivity extends AppCompatActivity {
 //            Manifest.permission.SEND_SMS,
 //            Manifest.permission.INTERNET};
 
+    private EditText email;
+    private EditText senha;
+    private Button btn_login;
+    private Usuario usuario;
+    private FirebaseAuth autenticador; //realizar a autenticação do usuário e senha digitados
+
+
     private DatabaseReference referenciaFirebase;
 
     @Override
@@ -40,8 +47,61 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        referenciaFirebase = ConfiguracaoFirebase.getFirebase();
-        referenciaFirebase.child("pontos").setValue(700);
+        email = findViewById(R.id.edit_email);
+        senha = findViewById(R.id.edit_senha);
+        btn_login = findViewById(R.id.btlogin);
+
+        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                usuario = new Usuario();
+
+                usuario.setEmail(email.getText().toString());
+                usuario.setSenha(senha.getText().toString());
+
+                validateLogin();
+
+            }
+        });
+
+
+       }
+
+    private void validateLogin() {
+
+        //realizara a autenticação do usuário utiilizando o email e senha digitados
+        autenticador = ConfiguracaoFirebase.getFirebaseAutenticacao();
+        //informa o email e senha digitados, e usa o metodo addOnCompleteListener para verificar se a autenticação foi feita corretamente
+        autenticador.signInWithEmailAndPassword(usuario.getEmail(), usuario.getSenha()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                String erro = "";
+
+                //task.isSuccesfull retorna se o login foi feito corretamente
+                if (task.isSuccessful()) {
+                    Toast.makeText(LoginActivity.this,"Login efetuado" , Toast.LENGTH_SHORT).show();
+                }else{
+
+                    try {
+                        throw task.getException();
+
+                    } catch (FirebaseAuthInvalidCredentialsException e) {
+                        erro = "A senha digitada está incorreta";
+
+                    } catch (FirebaseAuthInvalidUserException e) {
+                        erro = "O Email digitado está incorreto";
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    Toast.makeText(LoginActivity.this,"Erro: " + erro , Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
 
 
 
